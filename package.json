@@ -1,0 +1,38 @@
+{
+  "name": "rn-go-monorepo",
+  "version": "1.0.0",
+  "description": "A monorepo containing a React Native mobile app built with Expo and NativeWind, with a Go backend. The mobile app is the primary Node.js workspace.",
+  "scripts": {
+    "start": "turbo run start",
+    "android": "turbo run android",
+    "ios": "turbo run ios",
+    "web": "turbo run web",
+    "lint": "turbo run lint",
+    "reset-project": "turbo run reset-project"
+  },
+  "workspaces": [
+    "apps/*"
+  ],
+  "devDependencies": {
+    "@types/node": "^24.3.0",
+    "rimraf": "^6.0.1",
+    "turbo": "^2.5.6",
+    "typescript": "5.8.3"
+  },
+  "packageManager": "pnpm@8.15.0",
+  "engines": {
+    "node": ">=22"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/albuquerquewizard/rn-go-monorepo.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/albuquerquewizard/rn-go-monorepo/issues"
+  },
+  "homepage": "https://github.com/albuquerquewizard/rn-go-monorepo#readme"
+}

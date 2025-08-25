@@ -1,0 +1,26 @@
+{
+  "$schema": "https://turbo.build/schema.json",
+  "ui": "tui",
+  "tasks": {
+    "start": {
+      "cache": false,
+      "persistent": true
+    },
+    "android": {
+      "cache": false
+    },
+    "ios": {
+      "cache": false
+    },
+    "web": {
+      "cache": false,
+      "persistent": true
+    },
+    "lint": {
+      "dependsOn": ["^lint"]
+    },
+    "reset-project": {
+      "cache": false
+    }
+  }
+}

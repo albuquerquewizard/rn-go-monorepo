@@ -1,0 +1,79 @@
+version: '3'
+
+vars:
+  BOILERPLATE_DB_DSN: '{{.BOILERPLATE_DB_DSN | default ""}}'
+
+tasks:
+  help:
+    desc: print this help message
+    cmds:
+    - task --list-all
+    silent: true
+
+  confirm:
+    desc: confirmation prompt
+    cmds:
+    - |
+      echo -n 'Are you sure? [y/N] ' && read ans && [ ${ans:-N} = y ]
+    silent: true
+    internal: true
+
+  run:
+    desc: run the cmd/go-boilerplate application
+    cmds:
+    - go run ./cmd/go-boilerplate
+
+  docker:build:
+    desc: build production Docker image
+    cmds:
+    - echo 'Building production Docker image...'
+    - docker build -f ./docker/Dockerfile -t go-boilerplate:latest .
+
+  docker:dev:
+    desc: build development Docker image
+    cmds:
+    - echo 'Building development Docker image...'
+    - docker build -f ./docker/Dockerfile.dev -t go-boilerplate:dev .
+
+  docker:compose:
+    desc: start services with docker-compose
+    cmds:
+    - echo 'Starting services with docker-compose...'
+    - cd docker && docker-compose up -d
+
+  docker:compose:down:
+    desc: stop docker-compose services
+    cmds:
+    - echo 'Stopping docker-compose services...'
+    - cd docker && docker-compose down
+
+  migrations:new:
+    desc: create a new database migration
+    vars:
+      NAME: '{{.name | default ""}}'
+    cmds:
+    - |
+      if [ -z "{{.NAME}}" ]; then
+        echo "Error: name parameter is required"
+        echo "Usage: task migrations:new name=migration_name"
+        exit 1
+      fi
+    - echo 'Creating migration file for {{.NAME}}...'
+    - tern new -m ./internal/database/migrations {{.NAME}}
+
+  migrations:up:
+    desc: apply all up database migrations
+    deps: [ confirm ]
+    cmds:
+    - echo 'Running up migrations...'
+    - tern migrate -m ./internal/database/migrations --conn-string {{.BOILERPLATE_DB_DSN}}
+
+  tidy:
+    desc: format all .go files, and tidy and vendor module dependencies
+    cmds:
+    - echo 'Formatting .go files...'
+    - go fmt ./...
+    - echo 'Tidying module dependencies...'
+    - go mod tidy
+    - echo 'Verifying dependencies...'
+    - go mod verify

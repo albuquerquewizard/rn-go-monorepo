@@ -1,0 +1,64 @@
+# Binary output
+main
+*.exe
+*.out
+*.test
+tmp/
+build/
+bin/
+dist/
+
+# Vendor (ignore if not vendoring)
+vendor/
+
+# IDE/Editor files
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Git
+.git
+.gitignore
+
+# Logs and temp files
+*.log
+*.tmp
+*.bak
+/tmp/
+
+# Coverage and test artifacts
+*.coverprofile
+coverage.out
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Docker files
+docker/
+Dockerfile*
+docker-compose*
+
+# Environment files
+.env
+.env.local
+.env.*
+app.env
+
+# Documentation
+README.md
+LICENSE.md
+*.md
+
+# Task files
+Taskfile.yml
+
+# Linter config
+.golangci.yml
+
+# Air config
+.air.toml
+
+# Scripts
+scripts/
